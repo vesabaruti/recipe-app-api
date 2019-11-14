@@ -8,7 +8,13 @@ ENV PYTHONUNBUFFERED 1
 
 # copy file from the directory adjacent to the docker file - on the docker image
 COPY ./requirements.txt /requirements.txt
+RUN apk add --update --no-cache postgresql-client
+# temporary requirements
+RUN apk add --update --no-cache --virtual .tmp-build-deps \
+      gcc libc-dev linux-headers postgresql-dev
 RUN pip install -r /requirements.txt
+# delete temp requirements
+RUN apk del .tmp-build-deps
 
 #create a directory to store our application source code in the docker image, and copy source code to the app directory in docker image
 RUN mkdir /app
