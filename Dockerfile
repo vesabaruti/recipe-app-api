@@ -8,10 +8,10 @@ ENV PYTHONUNBUFFERED 1
 
 # copy file from the directory adjacent to the docker file - on the docker image
 COPY ./requirements.txt /requirements.txt
-RUN apk add --update --no-cache postgresql-client
+RUN apk add --update --no-cache postgresql-client jpeg-dev
 # temporary requirements
 RUN apk add --update --no-cache --virtual .tmp-build-deps \
-      gcc libc-dev linux-headers postgresql-dev
+      gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev
 RUN pip install -r /requirements.txt
 # delete temp requirements
 RUN apk del .tmp-build-deps
@@ -21,7 +21,14 @@ RUN mkdir /app
 WORKDIR /app
 COPY ./app /app
 
+# directory to store files
+RUN mkdir -p /vol/web/media
+# directory for static files like javascript(that dont change during the running of the application)
+RUN mkdir -p /vol/web/static
 # add a usser to use our app.  -D allows a user to only run applications
 # without this user, the app will run using the root user which is not recommended for security reasons
 RUN adduser -D user
+# R stands for Recursive, and the command sets the ownership of vol directory to the user
+RUN chown -R user:user /vol/
+RUN chmod -R 775 /vol/web
 USER user
