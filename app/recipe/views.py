@@ -76,7 +76,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     @action(methods=['POST'], detail=True, url_path='upload-image')
     def upload_image(self, request, pk=None):
-        """Upload an image to a recipe test change"""
+        """Upload an image to a recipe"""
         recipe = self.get_object()
         serializer = self.get_serializer(
             recipe,
