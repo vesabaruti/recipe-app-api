@@ -1,9 +1,9 @@
 # name of the image we are going to base it from
 FROM python:3.7-alpine
 # maintainer line
-MAINTAINER vesabaruti
+MAINTAINER Vesa Baruti
 
-# doesnt allow python do buffer the outputs
+# doesnt allow python to buffer the outputs
 ENV PYTHONUNBUFFERED 1
 
 # copy file from the directory adjacent to the docker file - on the docker image
