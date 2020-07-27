@@ -11,8 +11,8 @@ phases:
       - docker-compose build
   build:
     commands:
-      - echo Running tests for recipe-app
+      - echo Running tests
       - docker-compose run app sh -c "python manage.py test"
-#cache:
-#  paths:
-#    - '/root/.cache/pip/**/*'
+cache:
+  paths:
+    - '/root/.cache/pip/**/*'
