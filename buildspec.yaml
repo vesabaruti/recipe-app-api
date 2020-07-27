@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - pip install requirements.txt
+      - docker-compose --build
+  build:
+    commands:
+      - echo Running tests
+      - docker-compose run app sh -c "python manage.py test"
+#cache:
+#  paths:
+#    - '/root/.cache/pip/**/*'
