@@ -6,7 +6,7 @@ phases:
       python: 3.8
     commands:
       - pip3 install psycopg2-binary
-      - docker-compose --build
+      - docker-compose build
   build:
     commands:
       - echo Running tests
